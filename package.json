@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint-config-devjmetivier": "^0.0.9",
     "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.1",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0"
   },
@@ -14,7 +16,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "devjmetivier"
   },
   "browserslist": {
     "production": [
