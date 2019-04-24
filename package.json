@@ -6,7 +6,9 @@
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.1",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "reboot.css": "^1.0.4",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
