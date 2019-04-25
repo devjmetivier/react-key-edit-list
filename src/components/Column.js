@@ -9,15 +9,13 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgray;
   border-radius: 2px;
-  width: 220px;
 `;
 const Title = styled.h3`
   padding: 8px;
 `;
 const TaskList = styled.div`
-  flex-grow: 1;
+  display: flex;
   padding: 8px;
-  min-height: 100px;
   background: ${props => (props.isDraggingOver ? `skyblue` : `white`)};
   transition: background 0.2s ease;
 `;
@@ -32,6 +30,7 @@ const Column = props => {
         droppableId={column.id}
         // type={column.id === `column-3` ? `done` : `active`}
         isDropDisabled={isDropDisabled}
+        direction='horizontal'
       >
         {(provided, snapshot) => (
           <TaskList
