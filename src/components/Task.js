@@ -3,21 +3,14 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin-bottom: 8px;
   padding: 8px;
-  //width: 40px;
-  //height: 40px;
   border: 1px solid lightgray;
   border-radius: 2px;
   background: ${props => (props.isDragging ? `lightgreen` : `white`)};
-
-  &:focus {
-    outline: none;
-    border-color: red;
-  }
 `;
 
 const Handle = styled.div`
@@ -25,7 +18,7 @@ const Handle = styled.div`
   width: 20px;
   height: 20px;
   background: orange;
-  border-radius: 4px;
+  border-radius: 2px;
 `;
 
 const Task = props => {
@@ -41,7 +34,8 @@ const Task = props => {
           isDragging={snapshot.isDragging}
         >
           {/* <Handle {...provided.dragHandleProps} /> */}
-          {task.content}
+          <input type='text' value={task.content} />
+          {/* {task.content} */}
           {provided.placeholder}
         </Container>
       )}

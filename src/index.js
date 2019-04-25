@@ -3,26 +3,22 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import 'reboot.css';
-import initialData from './initialData';
+import { initialData, ContextProvider } from './initialData';
 import Column from './components/Column';
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 `;
-
-class InnerList extends React.PureComponent {
-  render() {
-    const { column, taskMap, index } = this.props;
-    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
-    return <Column column={column} tasks={tasks} index={index} />;
-  }
-}
 
 const App = () => {
   const [columnState, updateColumnState] = useState(initialData);
 
   const onDragEnd = result => {
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, draggableId } = result;
 
     if (!destination) return;
 
@@ -31,16 +27,6 @@ const App = () => {
       destination.index === source.index
     )
       return;
-
-    if (type === `column`) {
-      const newColumnOrder = Array.from(columnState.columnOrder);
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
-
-      const newState = { ...columnState, columnOrder: newColumnOrder };
-      updateColumnState(newState);
-      return;
-    }
 
     const home = columnState.columns[source.droppableId];
     const foreign = columnState.columns[destination.droppableId];
@@ -64,34 +50,7 @@ const App = () => {
       };
 
       updateColumnState(newState);
-      return;
     }
-
-    // moving from one list to another
-    const homeTaskIds = Array.from(home.taskIds);
-    homeTaskIds.splice(source.index, 1);
-    const newHome = {
-      ...home,
-      taskIds: homeTaskIds,
-    };
-
-    const foreignTaskIds = Array.from(foreign.taskIds);
-    foreignTaskIds.splice(destination.index, 0, draggableId);
-    const newForeign = {
-      ...foreign,
-      taskIds: foreignTaskIds,
-    };
-
-    const newState = {
-      ...columnState,
-      columns: {
-        ...columnState.columns,
-        [newHome.id]: newHome,
-        [newForeign.id]: newForeign,
-      },
-    };
-
-    updateColumnState(newState);
   };
 
   return (
@@ -101,12 +60,14 @@ const App = () => {
           <Container {...provided.droppableProps} ref={provided.innerRef}>
             {columnState.columnOrder.map((columnId, index) => {
               const column = columnState.columns[columnId];
-
+              const tasks = column.taskIds.map(
+                taskId => columnState.tasks[taskId]
+              );
               return (
-                <InnerList
-                  key={column.id}
+                <Column
+                  key={columnId}
                   column={column}
-                  taskMap={columnState.tasks}
+                  tasks={tasks}
                   index={index}
                 />
               );

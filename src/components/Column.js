@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
 
 const Container = styled.div`
@@ -9,12 +9,13 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgray;
   border-radius: 2px;
-  width: 220px;
+  width: 50%;
   background: white;
 `;
 
 const Title = styled.h3`
   padding: 8px;
+  text-align: center;
 `;
 
 const TaskList = styled.div`
@@ -33,33 +34,24 @@ class InnerList extends React.PureComponent {
 }
 
 const Column = props => {
-  const { column, tasks, index } = props;
+  const { column, tasks } = props;
 
   return (
-    <Draggable draggableId={column.id} index={index}>
-      {provided => (
-        <Container {...provided.draggableProps} ref={provided.innerRef}>
-          <Title {...provided.dragHandleProps}>{column.title}</Title>
-          <Droppable
-            droppableId={column.id}
-            // type={column.id === `column-3` ? `done` : `active`}
-            type='task'
-            // direction='horizontal'
+    <Container>
+      <Title>{column.title}</Title>
+      <Droppable droppableId={column.id}>
+        {(provided, snapshot) => (
+          <TaskList
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
           >
-            {(provided, snapshot) => (
-              <TaskList
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
-              >
-                <InnerList tasks={tasks} />
-                {provided.placeholder}
-              </TaskList>
-            )}
-          </Droppable>
-        </Container>
-      )}
-    </Draggable>
+            <InnerList tasks={tasks} />
+            {provided.placeholder}
+          </TaskList>
+        )}
+      </Droppable>
+    </Container>
   );
 };
 
