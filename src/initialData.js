@@ -8,11 +8,16 @@ const initialData = {
   columns: {
     'column-1': {
       id: `column-1`,
-      title: `to Do`,
+      title: `To Do`,
       taskIds: [`task-1`, `task-2`, `task-3`, `task-4`],
+    },
+    'column-2': {
+      id: `column-2`,
+      title: `In Progress`,
+      taskIds: [],
     },
   },
   // facilitate reordering of the column
-  columnOrder: [`column-1`],
+  columnOrder: [`column-1`, `column-2`],
 };
 export default initialData;
