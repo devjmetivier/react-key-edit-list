@@ -28,9 +28,10 @@ const Task = props => {
         <Container
           ref={provided.innerRef}
           {...provided.draggableProps}
+          {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
         >
-          <Handle {...provided.dragHandleProps} />
+          {/* <Handle {...provided.dragHandleProps} /> */}
           {task.content}
           {provided.placeholder}
         </Container>
