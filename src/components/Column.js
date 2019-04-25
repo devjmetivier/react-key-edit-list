@@ -23,12 +23,16 @@ const TaskList = styled.div`
 `;
 
 const Column = props => {
-  const { column, tasks } = props;
+  const { column, tasks, isDropDisabled } = props;
 
   return (
     <Container>
       <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
+      <Droppable
+        droppableId={column.id}
+        // type={column.id === `column-3` ? `done` : `active`}
+        isDropDisabled={isDropDisabled}
+      >
         {(provided, snapshot) => (
           <TaskList
             ref={provided.innerRef}

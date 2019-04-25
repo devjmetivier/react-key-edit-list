@@ -8,7 +8,12 @@ const Container = styled.div`
   padding: 8px;
   border: 1px solid lightgray;
   border-radius: 2px;
-  background: ${props => (props.isDragging ? `lightgreen` : `white`)};
+  background: ${props =>
+    props.isDragDisabled
+      ? `lightgray`
+      : props.isDragging
+        ? `lightgreen`
+        : `white`};
 `;
 
 const Handle = styled.div`
@@ -21,15 +26,21 @@ const Handle = styled.div`
 
 const Task = props => {
   const { task, index } = props;
+  const isDragDisabled = task.id === `task-1`;
 
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable
+      draggableId={task.id}
+      index={index}
+      isDragDisabled={isDragDisabled}
+    >
       {(provided, snapshot) => (
         <Container
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
+          isDragDisabled={isDragDisabled}
         >
           {/* <Handle {...provided.dragHandleProps} /> */}
           {task.content}
