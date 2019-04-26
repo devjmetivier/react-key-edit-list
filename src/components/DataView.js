@@ -7,10 +7,9 @@ const Pre = styled.pre`
   height: 500px;
   border: 1px solid lightgray;
   border-radius: 2px;
-  overflow: scroll;
 `;
 
 // eslint-disable-next-line
-const DataView = props => <Pre>{JSON.stringify(props.data, null, props.tabs ? '\t' : 2)}</Pre>;
+const DataView = props => <Pre>{JSON.stringify(props.data, null, props.tabs ? `\t` : 2)}</Pre>;
 
 export default DataView;

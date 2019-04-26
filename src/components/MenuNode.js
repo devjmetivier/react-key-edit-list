@@ -14,13 +14,18 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const TaskHead = styled.div`
+const MenuNodeHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const TaskBody = styled.div`
+const MenuNodeNavigation = styled.div`
+  height: ${props => (props.disabled ? `0` : `auto`)};
+  visibility: ${props => (props.disabled ? `hidden` : `visbile`)};
+`;
+
+const MenuNodeBody = styled.div`
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
@@ -84,16 +89,22 @@ const MenuNode = props => {
           isDragging={snapshot.isDragging}
           onKeyPress={keyCheck}
         >
-          <TaskHead
+          <MenuNodeHead
             {...provided.dragHandleProps}
             onClick={() => setDisabled(prev => !prev)}
           >
             <div style={{ marginRight: `8px` }}>{index + 1}.</div>
             <h2>{menu.name.toUpperCase()}</h2>
             <span />
-          </TaskHead>
+          </MenuNodeHead>
 
-          <TaskBody disabled={disabled}>
+          <MenuNodeNavigation disabled={disabled}>
+            {menu.subSettings.map(opt => (
+              <button>{opt.charAt(0).toUpperCase() + opt.slice(1)}</button>
+            ))}
+          </MenuNodeNavigation>
+
+          <MenuNodeBody disabled={disabled}>
             {entries.map((property, i) => {
               if (i === 0) return;
               return (
@@ -115,7 +126,7 @@ const MenuNode = props => {
                 </div>
               );
             })}
-          </TaskBody>
+          </MenuNodeBody>
 
           {provided.placeholder}
         </Container>
