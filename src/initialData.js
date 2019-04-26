@@ -3,7 +3,7 @@ const initialData = {
     '0001': {
       id: `0001`,
       name: `Main Menu`,
-      description: `Keeps the doctor away`,
+      description: `Order Here`,
       buttons: [`Breakfast`, `Lunch`, `Dinner`],
     },
     '0002': {
