@@ -1,7 +1,7 @@
 import React from 'react';
-import { TasksProvider, TasksContext } from './data/tasks';
-import { ColumnsProvider, ColumnsContext } from './data/columns';
-import { ColumnOrderProvider, ColumnOrderContext } from './data/columnOrder';
+import { TasksProvider } from './data/tasks';
+import { ColumnsProvider } from './data/columns';
+import { ColumnOrderProvider } from './data/columnOrder';
 
 function ProviderComposer({ contexts, children }) {
   return contexts.reduceRight(
@@ -45,10 +45,4 @@ const initialData = {
   columnOrder: [`column-1`],
 };
 
-export {
-  ContextProvider,
-  initialData,
-  TasksContext,
-  ColumnsContext,
-  ColumnOrderContext,
-};
+export { ContextProvider, initialData };

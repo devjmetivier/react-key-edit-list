@@ -1,4 +1,4 @@
-import React, { useState, useMemo, createContext } from 'react';
+import React, { useState, useMemo, createContext, useContext } from 'react';
 
 const initColumns = {
   'column-1': {
@@ -10,10 +10,17 @@ const initColumns = {
 
 const ColumnsContext = createContext();
 
+function useColumns() {
+  const context = useContext(ColumnsContext);
+  if (!context)
+    throw new Error('useColumns must be used with a ColumnsProvider');
+  return context;
+}
+
 function ColumnsProvider(props) {
-  const [columns, updateColumns] = useState(initColumns);
-  const value = useMemo(() => [columns, updateColumns], [columns]);
+  const [columns, setColumns] = useState(initColumns);
+  const value = useMemo(() => [columns, setColumns], [columns]);
   return <ColumnsContext.Provider value={value} {...props} />;
 }
 
-export { ColumnsContext, ColumnsProvider };
+export { ColumnsProvider, useColumns };

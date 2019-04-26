@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import 'reboot.css';
-import { initialData, ContextProvider, ColumnsContext } from './initialData';
+import { initialData, ContextProvider } from './initialData';
+
 import Column from './components/Column';
 
 const Container = styled.div`
@@ -13,19 +14,6 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
 `;
-
-const Whatever = () => {
-  const context = useContext(ColumnsContext);
-  const [columns, updateColumns] = context;
-  console.log(columns);
-  console.log(updateColumns);
-
-  return (
-    <>
-      <p>{JSON.stringify(columns)}</p>
-    </>
-  );
-};
 
 const App = () => {
   const [columnState, updateColumnState] = useState(initialData);
@@ -82,15 +70,12 @@ const App = () => {
                   taskId => columnState.tasks[taskId]
                 );
                 return (
-                  <>
-                    <Column
-                      key={columnId}
-                      column={column}
-                      tasks={tasks}
-                      index={index}
-                    />
-                    <Whatever />
-                  </>
+                  <Column
+                    key={columnId}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                  />
                 );
               })}
               {provided.placeholder}
