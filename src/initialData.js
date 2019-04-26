@@ -1,32 +1,3 @@
-import React from 'react';
-import { TasksProvider } from './data/tasks';
-import { ColumnsProvider } from './data/columns';
-import { ColumnOrderProvider } from './data/columnOrder';
-
-function ProviderComposer({ contexts, children }) {
-  return contexts.reduceRight(
-    (kids, parent) =>
-      React.cloneElement(parent, {
-        children: kids,
-      }),
-    children
-  );
-}
-
-function ContextProvider({ children }) {
-  return (
-    <ProviderComposer
-      contexts={[
-        <TasksProvider />,
-        <ColumnsProvider />,
-        <ColumnOrderProvider />,
-      ]}
-    >
-      {children}
-    </ProviderComposer>
-  );
-}
-
 const initialData = {
   tasks: {
     'task-1': { id: `task-1`, content: `take out the garbage` },
@@ -45,4 +16,4 @@ const initialData = {
   columnOrder: [`column-1`],
 };
 
-export { ContextProvider, initialData };
+export { initialData };

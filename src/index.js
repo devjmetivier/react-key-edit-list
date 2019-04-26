@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import 'reboot.css';
-import { initialData, ContextProvider } from './initialData';
+import { initialData } from './initialData';
 
 import Column from './components/Column';
 
@@ -55,35 +55,29 @@ const App = () => {
   };
 
   return (
-    <ContextProvider>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          droppableId='all-columns'
-          direction='horizontal'
-          type='column'
-        >
-          {provided => (
-            <Container {...provided.droppableProps} ref={provided.innerRef}>
-              {columnState.columnOrder.map((columnId, index) => {
-                const column = columnState.columns[columnId];
-                const tasks = column.taskIds.map(
-                  taskId => columnState.tasks[taskId]
-                );
-                return (
-                  <Column
-                    key={columnId}
-                    column={column}
-                    tasks={tasks}
-                    index={index}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </ContextProvider>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId='all-columns' direction='horizontal' type='column'>
+        {provided => (
+          <Container {...provided.droppableProps} ref={provided.innerRef}>
+            {columnState.columnOrder.map((columnId, index) => {
+              const column = columnState.columns[columnId];
+              const tasks = column.taskIds.map(
+                taskId => columnState.tasks[taskId]
+              );
+              return (
+                <Column
+                  key={columnId}
+                  column={column}
+                  tasks={tasks}
+                  index={index}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
