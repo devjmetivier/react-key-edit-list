@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
-import Task from './Task';
+import MenuNode from './MenuNode';
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const Title = styled.h3`
   text-align: center;
 `;
 
-const TaskList = styled.div`
+const MenuListStyle = styled.div`
   flex-grow: 1;
   min-height: 100px;
   padding: 8px;
@@ -29,11 +29,11 @@ const TaskList = styled.div`
 
 class InnerList extends React.PureComponent {
   render() {
-    const { tasks, columnState, updateColumnState } = this.props;
-    return tasks.map((task, i) => (
-      <Task
-        key={task.id}
-        task={task}
+    const { menus, columnState, updateColumnState } = this.props;
+    return menus.map((menu, i) => (
+      <MenuNode
+        key={menu.id}
+        menu={menu}
         index={i}
         columnState={columnState}
         updateColumnState={updateColumnState}
@@ -42,30 +42,30 @@ class InnerList extends React.PureComponent {
   }
 }
 
-const Column = props => {
-  const { column, tasks, columnState, updateColumnState } = props;
+const MenuList = props => {
+  const { column, menus, columnState, updateColumnState } = props;
 
   return (
     <Container>
       <Title>{column.title}</Title>
       <Droppable droppableId={column.id}>
         {(provided, snapshot) => (
-          <TaskList
+          <MenuListStyle
             ref={provided.innerRef}
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
             <InnerList
-              tasks={tasks}
+              menus={menus}
               columnState={columnState}
               updateColumnState={updateColumnState}
             />
             {provided.placeholder}
-          </TaskList>
+          </MenuListStyle>
         )}
       </Droppable>
     </Container>
   );
 };
 
-export default Column;
+export default MenuList;

@@ -28,19 +28,11 @@ const TaskBody = styled.div`
   visibility: ${props => (props.disabled ? `hidden` : `visbile`)};
 `;
 
-const Handle = styled.div`
-  margin-right: 8px;
-  width: 20px;
-  height: 20px;
-  background: orange;
-  border-radius: 2px;
-`;
-
-const Task = props => {
-  const { task, index, columnState, updateColumnState } = props;
+const MenuNode = props => {
+  const { menu, index, columnState, updateColumnState } = props;
   const [disabled, setDisabled] = useState(true);
 
-  const entries = Object.entries(task);
+  const entries = Object.entries(menu);
 
   const textChange = ({ target }, property, type) => {
     let { value } = target;
@@ -52,12 +44,12 @@ const Task = props => {
 
     const newText = {
       ...columnState,
-      tasks: {
-        ...columnState.tasks,
-        [task.id]: {
-          ...task,
+      menus: {
+        ...columnState.menus,
+        [menu.id]: {
+          ...menu,
           [property]: value,
-          id: task.id,
+          id: menu.id,
         },
       },
     };
@@ -84,20 +76,21 @@ const Task = props => {
   };
 
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={menu.id} index={index}>
       {(provided, snapshot) => (
         <Container
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
           onKeyPress={keyCheck}
         >
-          <TaskHead onClick={() => setDisabled(prev => !prev)}>
+          <TaskHead
+            {...provided.dragHandleProps}
+            onClick={() => setDisabled(prev => !prev)}
+          >
             <div style={{ marginRight: `8px` }}>{index + 1}.</div>
-            <h2>{task.name.toUpperCase()}</h2>
+            <h2>{menu.name.toUpperCase()}</h2>
             <span />
-            {/* <Handle style={{ opacity: 0 }} {...provided.dragHandleProps} /> */}
           </TaskHead>
 
           <TaskBody disabled={disabled}>
@@ -131,4 +124,4 @@ const Task = props => {
   );
 };
 
-export default Task;
+export default MenuNode;

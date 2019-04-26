@@ -1,35 +1,35 @@
 const initialData = {
-  tasks: {
+  menus: {
     '0001': {
       id: `0001`,
-      name: `apple`,
+      name: `Main Menu`,
       description: `Keeps the doctor away`,
-      attributes: [`red`, `green`, `golden`],
+      buttons: [`Breakfast`, `Lunch`, `Dinner`],
     },
     '0002': {
       id: `0002`,
-      name: `orange`,
-      description: `You gotta peel it to believe it`,
-      attributes: [`orange`, `juicy`, `Vitamin-C`],
+      name: `Breakfast`,
+      description: `Order your breakfast here`,
+      buttons: [`eggs`, `ham`, `french toast`],
     },
     '0003': {
       id: `0003`,
-      name: `banana`,
-      description: `PEEL THE BANANA`,
-      attributes: [`yellow`, `berry`, `potassium`],
+      name: `Lunch`,
+      description: `Order your lunch here`,
+      buttons: [`sandwich`, `salad`, `fruit`],
     },
     '0004': {
       id: `0004`,
-      name: `pear`,
-      description: `Not your average jeans`,
-      attributes: [`greenish`, `pomaceous`, `sacred`],
+      name: `Dinner`,
+      description: `Order your dinner here`,
+      buttons: [`steak`, `burrito`, `shawarma`],
     },
   },
   columns: {
     'column-1': {
       id: `column-1`,
-      title: `Items`,
-      taskIds: [`0001`, `0002`, `0003`, `0004`],
+      title: `Menus`,
+      menuIds: [`0001`, `0002`, `0003`, `0004`],
     },
   },
   // facilitate reordering of the column
