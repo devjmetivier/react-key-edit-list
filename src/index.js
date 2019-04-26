@@ -15,6 +15,15 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+const Pre = styled.pre`
+  margin: 0 0 0 30px;
+  width: 500px;
+  height: 500px;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  overflow: scroll;
+`;
+
 const App = () => {
   const [columnState, updateColumnState] = useState(initialData);
 
@@ -65,12 +74,17 @@ const App = () => {
                 taskId => columnState.tasks[taskId]
               );
               return (
-                <Column
-                  key={columnId}
-                  column={column}
-                  tasks={tasks}
-                  index={index}
-                />
+                <>
+                  <Column
+                    key={columnId}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                    columnState={columnState}
+                    updateColumnState={updateColumnState}
+                  />
+                  <Pre>{JSON.stringify(columnState.tasks, null, 2)}</Pre>
+                </>
               );
             })}
             {provided.placeholder}

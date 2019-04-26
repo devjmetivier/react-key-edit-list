@@ -6,11 +6,12 @@ import Task from './Task';
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  margin: 8px;
   border: 1px solid lightgray;
   border-radius: 2px;
   width: 50%;
   background: white;
+  height: 500px;
+  overflow-y: scroll;
 `;
 
 const Title = styled.h3`
@@ -28,13 +29,21 @@ const TaskList = styled.div`
 
 class InnerList extends React.PureComponent {
   render() {
-    const { tasks } = this.props;
-    return tasks.map((task, i) => <Task key={task.id} task={task} index={i} />);
+    const { tasks, columnState, updateColumnState } = this.props;
+    return tasks.map((task, i) => (
+      <Task
+        key={task.id}
+        task={task}
+        index={i}
+        columnState={columnState}
+        updateColumnState={updateColumnState}
+      />
+    ));
   }
 }
 
 const Column = props => {
-  const { column, tasks } = props;
+  const { column, tasks, columnState, updateColumnState } = props;
 
   return (
     <Container>
@@ -46,7 +55,11 @@ const Column = props => {
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            <InnerList tasks={tasks} />
+            <InnerList
+              tasks={tasks}
+              columnState={columnState}
+              updateColumnState={updateColumnState}
+            />
             {provided.placeholder}
           </TaskList>
         )}
