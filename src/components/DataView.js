@@ -32,19 +32,19 @@ const preStyles = {
 // eslint-disable-next-line
 const DataView = props =>{
   const { data, tabs } = props;
-  const [visible, setVisible] = useState(false);
+  const [on, setOn] = useState(false);
 
   return (
-    <div style={{ ...containerStyles, width: visible ? `400px` : `0` }}>
+    <div style={{ ...containerStyles, width: on ? `400px` : `0` }}>
       <button
         type='button'
         style={buttonStyles}
-        onClick={() => setVisible(prev => !prev)}
+        onClick={() => setOn(prev => !prev)}
       >
         i
       </button>
-      {visible && (
-        <pre style={{ ...preStyles, display: visible ? `block` : `none` }}>
+      {on && (
+        <pre style={{ ...preStyles, display: on ? `block` : `none` }}>
           {JSON.stringify(data, null, tabs ? `\t` : 2)}
         </pre>
       )}
